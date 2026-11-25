@@ -54,17 +54,19 @@ The monorepo layout and the "why" behind each package are documented in
 
 ## Tests & checks
 
-Before opening a pull request, please run the checks that match your change:
+CI builds the Wasm crates, SDK, and Studio. Run the checks relevant to your
+change locally before opening a pull request:
 
 ```bash
 npm run verify        # hermetic, offline end-to-end suite
 npm run smoke         # SDK public-API + packaging guard (offline)
 npm run typecheck:sdk # type-check @vivari/core and @vivari/react
+(cd packages/studio && bun install --frozen-lockfile && bun run lint)
 ```
 
-CI runs the same checks (see `.gitlab-ci.yml`). The network-dependent spike tier
-(`npm run spikes:net`) boots real templates against the live npm registry and is
-run manually / on a schedule.
+`npm run spikes:offline` runs the offline compatibility probes. The network-
+dependent `npm run spikes:net` boots real templates against the live npm
+registry; use it when changing template or package-manager behavior.
 
 ## Writing a blog post
 
@@ -102,7 +104,7 @@ overwrite the landing. Consequences worth knowing:
 - Write clear commit messages; conventional-commit prefixes (`feat:`, `fix:`,
   `docs:`, `chore:`) are appreciated but not required.
 - Fill out the pull-request template so reviewers have context.
-- Make sure `verify` and `smoke` pass and there are no lint errors.
+- Run the relevant local checks above and resolve any lint errors.
 - If the change reaches embedders of `@vivari/core` or `@vivari/react` (the SDK, the
   runtime, the kernel or the preview Service Worker), add a changeset with
   `npm run changeset`. See [.changeset/README.md](.changeset/README.md).
