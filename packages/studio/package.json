@@ -50,5 +50,8 @@
     "typescript": "~6.0.2",
     "unplugin-icons": "^23.0.1",
     "vite": "^8.1.1"
+  },
+  "overrides": {
+    "@hono/node-server": "1.19.18"
   }
 }

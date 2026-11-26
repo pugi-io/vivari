@@ -31,5 +31,8 @@
     "typescript": "~6.0.2",
     "unplugin-icons": "^23.0.1",
     "vite": "^8.1.1"
+  },
+  "overrides": {
+    "@rolldown/binding-wasm32-wasi": "1.2.0"
   }
 }
